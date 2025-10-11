@@ -1,0 +1,444 @@
+/* Reset and Base Styles */
+:root{
+    --primary-color: orange;
+    --secondary-color: #284188;
+    --background-color:  #1f263a;
+    
+    --text-color: #9599b4;
+    --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    overflow-x: hidden;
+}
+
+
+/* Navigation */
+
+.navbar {
+    width: 100%;
+    top: 0;
+    position: fixed;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    height: 80px;
+}
+
+.nav-container{
+    width:1200px;
+    padding: 0 2rem;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+}
+
+.nav-brand{
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: blue;
+    text-decoration: none;
+    margin-right: 0.5rem;
+    font-size: 1.8rem;
+}
+
+.fas.fa-university{
+    color: blue;
+    margin-right: 0.5rem;
+}
+
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #64748b;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    position: relative;
+}
+
+.nav-link:hover {
+    color: #1e40af;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #2563eb;
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+/* HERO SECTION */
+.hero-section {
+    height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="1" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="1" fill="white" opacity="0.1"/><circle cx="90" cy="40" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+}
+
+.hero-container {
+    width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    gap: 2rem;
+    display: flex;
+    align-items: center;
+}
+
+.hero-content {
+    color: white;
+    max-width: 600px;
+}
+
+.hero-title {
+    font-size: 4rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.gradient-text {
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero-description {
+    font-size: 1.3rem;
+    line-height: 1.5;
+}
+
+.hero-button {
+    padding-top: 2rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.btn-primary {
+     background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    color: #1f2937;
+
+}
+
+.btn-primary:hover {
+     transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(251, 191, 36, 0.4);
+}
+
+.btn-secondary {
+    background: #e5e7eb;
+    color: #1f2937;
+}
+
+.btn-secondary:hover {
+   background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-3px);
+}
+
+.hero-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-card {
+    margin-left: 50px;
+    width: 350px;
+    height: 220px;
+    background: linear-gradient(135deg, #1f2937, #374151);
+    border-radius: 20px;
+    padding: 2rem;
+    color: white;
+    position: relative;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+    transform: perspective(1000px) rotateY(-15deg) rotateX(10deg);
+}
+
+.hero-card:hover {
+    transform: perspective(1000px) rotateY(-10deg) rotateX(5deg);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-chip {
+      width: 40px;
+    height: 30px;
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    border-radius: 6px;
+}
+
+.card-header i{
+    font-size: 2rem;
+}
+
+.card-number {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: white;
+    letter-spacing: 5px;
+    margin: 0 auto;
+    margin-top: 2.5rem;
+    text-decoration: dashed;
+}
+
+.card-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 2rem 0 0 0;
+}
+
+.features {
+    background-color: #e5e7eb;
+    padding: 4rem 0;
+}
+
+.features-container {
+    width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    text-align: center;
+}
+
+.features-header h2 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.features-header p {
+    font-size: 1rem;
+    color: #6b7280;
+    margin-bottom: 3rem;
+}
+
+.features-grid {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.feature-card {
+    width: 300px;
+    background: white;
+    border-radius: 25px;
+    height: 300px;
+}
+
+.feature-card:hover {
+    box-shadow: #764ba2 0px 10px 20px -10px, #667eea 0px 10px 20px -10px;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+}
+
+.feature-icon  {
+  
+    display: flex;
+    margin: 2rem auto 2rem auto;
+    border-radius: 15px;
+    color: #ffffff;
+    width: 80px;
+    height: 80px;
+    font-size: 2rem;
+    background: #033eff;
+    justify-content: center;
+    align-items: center;
+}
+
+.feature-card h3 {
+    font-size: 1.5rem;
+    margin: 1rem 1rem 0 0;
+    font-weight: 600;
+}
+
+.feature-card p {
+    font-size: 1rem;
+    color: #6b7280;
+    margin: 1rem 1rem;
+}
+
+.about-section {
+    background: linear-gradient(135deg, #1f2937, #374151);
+    color: white;
+}
+
+.about-grid {
+    width: 1200px;
+     display: flex;
+     margin-left: 70px;
+}
+
+.stat-item {
+    width: 210px;
+    text-align: center;
+    margin: 2rem;
+   
+}
+
+.stat-number {
+    font-size: 2.9rem;
+    font-weight: bold;
+    margin-left: 20px;
+    color:#f59e0b;
+}
+
+.stat-label {
+    font-size: 1rem;
+    margin-left: 20px;
+    font-weight: 500;
+}
+
+
+  /* FOOTER SECTION */
+.footer {
+    background: #1f2937;
+}
+
+.footer-container {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-content {
+    width: 200px;
+    gap: 5rem;
+    padding: 2rem 0;  
+    display: flex;
+    justify-content: space-between;
+}
+.footer-bank{
+   display: flex;
+   align-items: center;
+   flex-direction: column;
+}
+
+.footer-bank i {
+    font-size: 3rem;
+    color: blue;
+    font-weight: bold;
+}
+
+.footer-bank span {
+    margin: 10px 0 10px 0;
+    color: blue;
+    font-weight: bold;
+    font-size: 2rem;
+}
+
+.footer-bank p {
+    color: rgb(124, 127, 177);
+    margin: 0;
+    padding: 0;
+}
+
+.footer-services {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+}
+
+.footer-services h4 , .footer-support h4 , .footer-contact h4 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    color: orange;
+    
+}
+
+.footer-services ul , .footer-support ul{
+    list-style: none;
+    padding: 0;
+}
+
+.footer-services ul li , .footer-support ul li  {
+    margin-bottom: 0.5rem;
+}
+
+.footer-services ul li a , .footer-support ul li a {
+    color: #b7c6ddc2;
+    text-decoration: none;
+}
+
+.footer-services ul li a:hover , .footer-support ul li a:hover , .footer-items a:hover {
+    color: white;
+}
+
+.footer-services ul li a:active , .footer-support ul li a:active {
+    color:  orange;
+}
+
+.footer-contact {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+
+}
+
+.footer-contact i  {
+    font-size: 2rem;
+    margin-right: 1rem;
+    color: rgb(255, 136, 24);
+    padding: 2px 5px 2px 5px;
+}
