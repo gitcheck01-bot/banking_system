@@ -5,18 +5,20 @@ html, body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.login-container {
+.signup-container {
     background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
-    min-height: 100%; 
+    min-height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
+    padding: 2rem 0;
 }
 
-.login-grid {
-    margin: 3rem;
-    width: 80%;
+.signup-grid {
+    margin: 2rem;
+    width: 85%;
+    max-width: 1100px;
     background: white;
     padding: 2rem;
     border-radius: 10px;
@@ -25,76 +27,88 @@ html, body {
     flex-direction: row;
 }
 
-.login-image {
-  width: 50%;
+.signup-image {
+  width: 45%;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 1rem;
   box-sizing: border-box;
-  
+
 }
 
-.login-image img {
+.signup-image img {
   width: 100%;
   height: auto;
   object-fit: contain;
   border-radius: 10px;
 }
 
-.login-content {
-    width: 50%;
+.signup-content {
+    width: 55%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 1rem;
 }
 
-.login-header {
+.signup-header {
     text-align: center;
-    color: #667eea;
+    color: #2563eb;
 }
 
-.login-header h2 {
+.signup-header h2 {
     margin: 0;
     font-size: 2rem;
     color: black;
 }
 
-.login-header p {
+.signup-header p {
     font-size: 1rem;
     color: #555;
 }
 
-.login-brand  {
+.signup-brand  {
     display: flex;
     flex-direction: row;
     font-weight: bold;
     font-size: 1.5rem;
-    align-items: center;}
+    align-items: center;
+    justify-content: center;
+}
 
-.login-brand h1{
+.signup-brand h1{
     margin-left: 0.5rem;
-    color: #382ca8;
+    color: #1e40af;
 }
 
-.login-brand i {
-    color: #382ca8;
-    font-size: 4rem;
+.signup-brand i {
+    color: #1e40af;
+    font-size: 3rem;
 }
 
-.login-form  {
+.signup-form  {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    width: 100%;
+    max-width: 450px;
 }
 
-.login-form label {
+.signup-form label {
     font-weight: 600;
     color: rgb(43, 33, 33);
+    font-size: 0.9rem;
 }
 
-.login-group button {
+.signup-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.signup-group button {
   border: none;
   background: transparent;
   cursor: pointer;
@@ -104,9 +118,9 @@ html, body {
   padding: 0 0.5rem;
 }
 
-.login-input {
-  display: flex;               /* ✅ Align icon + input horizontally */
-  align-items: center;         /* ✅ Vertically center both */
+.signup-input {
+  display: flex;
+  align-items: center;
   border: 1px solid #bba7a7;
   border-radius: 5px;
   padding: 0 0.5rem;
@@ -114,102 +128,106 @@ html, body {
   transition: border 0.2s ease;
 }
 
-.login-input input {
-  flex: 1;                     /* ✅ Take all remaining width */
-  border: none;                /* Remove double border */
-  outline: none;               /* Clean focus style */
-  padding: 1rem 0.5rem;
-  font-size: 1rem;
+.signup-input input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 0.8rem 0.5rem;
+  font-size: 0.95rem;
   color: #160b22;
   background: transparent;
 
 }
 
-.login-input:hover {
+.signup-input:hover {
     border: 1px solid blue;
 }
 
-.login-input i {
+.signup-input i {
     color: #8c8aa0;
     background-position: 10px;
     padding-left: 10px;
     background-repeat: no-repeat;
 }
 
-.login-option {
+.signup-option {
     display: flex;
     align-items: center;
     flex-direction: row;
     margin-top: 0.5rem;
-    gap: 3rem;
 }
 
-.login-option label {
-    font-size: 1rem;
+.signup-option label {
+    font-size: 0.85rem;
     flex-wrap: wrap;
     padding-left: 5px;
+    font-weight: normal;
 }
 
-.remember-me {
+.signup-option a {
+    color: #1e40af;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.signup-option a:hover {
+    text-decoration: underline;
+}
+
+.terms-agree {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     font-size: 0.9rem;
     color: #555;
 }
 
-.remember-me input {
+.terms-agree input {
     background: transparent;
-    margin-right: 0.2rem;
+    margin-right: 0.4rem;
     width: 1rem;
     height: 1rem;
     cursor: pointer;
     border: 1px solid #9b9595;
 }
 
-.forgot-password {
-    font-size: 1rem;
-    font-weight: bold;
-    color: #081b70;
-    text-decoration: none;
-}
-
 .btn {
     cursor: pointer;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     color: rgb(35, 35, 187);
     padding: 0.7rem;
     border-radius: 5px;
-  transition: transform 0.2s ease;}
+  transition: transform 0.2s ease;
+}
 
 .btn:hover {
     background: #1034ff;
     transform: translateY(-5px);
-    box-shadow: 5px 5px 15px red;
+    box-shadow: 5px 5px 15px rgba(37, 99, 235, 0.4);
 }
 
 
-.btn-login {
+.btn-signup {
     background: #1238e2;
     color: white;
     border: none;
     margin-top: 1rem;
 }
 
-.login-footer {
+.signup-footer {
     display: flex;
     align-items: center;
     flex-direction: column;
     margin-top: 1rem;
 }
 
-.login-footer p {
+.signup-footer p {
     font-size: 0.9rem;
     color: #030101;
 }
 
-.login-footer a {
-    color :rgb(35, 35, 187);
+.signup-footer a {
+    color: rgb(35, 35, 187);
     font-weight: bold;
     text-decoration: none;
     cursor: pointer;
@@ -217,7 +235,49 @@ html, body {
     margin-left: 0.5rem;
 }
 
-.login-footer a:hover {
-     color: rgb(214, 27, 205);
+.signup-footer a:hover {
+     color: rgb(27, 118, 214);
+}
+
+@media (max-width: 968px) {
+    .signup-grid {
+        flex-direction: column;
+        width: 90%;
     }
 
+    .signup-image {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    .signup-content {
+        width: 100%;
+    }
+
+    .signup-brand i {
+        font-size: 2.5rem;
+    }
+
+    .signup-header h2 {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .signup-grid {
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+
+    .signup-form {
+        gap: 0.8rem;
+    }
+
+    .signup-header h2 {
+        font-size: 1.3rem;
+    }
+
+    .btn {
+        font-size: 1.1rem;
+    }
+}
