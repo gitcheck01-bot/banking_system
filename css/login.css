@@ -49,6 +49,7 @@ html, body {
     align-self: stretch;
     width: 5px;
     padding: 1rem 0;
+    height: 80%;
 }
 
 .login-border-inner {
