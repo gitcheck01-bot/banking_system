@@ -1,0 +1,128 @@
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+
+.sidebar {
+    width: 300px;
+    height: 100%;
+    background: #e6e5e5;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 20px 0;
+}
+
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+    border-bottom: #ffffff solid 1px;
+    padding-bottom: 10px;
+}
+
+.brand {
+    font-weight: bold;
+}
+
+.brand i {
+    margin-right: 10px;
+    color: orange;
+    font-size: 2rem;
+}
+
+.brand span {
+    color: orange;
+    font-size: 1.5rem;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+}
+
+.nav-item.active {
+    text-decoration: none;
+   align-items: center;
+    padding: 20px;
+    background-color: #f1c01f;
+    color: white;
+    border-left: #ff0000;
+    content: "";
+    top: 0;
+    bottom: 0;
+    border-left: rgb(255, 0, 0) solid 0.5rem;
+}
+
+.nav-item.active:hover ,.nav-item:hover{
+    content: "";
+    top: 0;
+    bottom: 0;
+    background: purple;
+    border-left: rgb(255, 0, 0) solid 0.5rem;
+
+}
+
+.nav-item.active i {
+    color: rgb(233, 232, 230);
+    font-size: 1.5rem;
+}
+
+.nav-item.active span {
+font-size: 1.3rem;
+padding-left: 1rem;
+}
+
+.nav-item {
+    margin-top: 3px;
+     text-decoration: none;
+    display: flex;
+    padding: 20px;
+    color: white;
+    transition: background 0.3 ease;
+}
+
+.nav-item i {
+    color: rgb(180, 175, 166);
+    font-size: 1.5rem;
+}
+
+.nav-item span {
+    font-size: 1.3rem;
+padding-left: 1rem;
+}
+
+.sidebar-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 6rem;
+}
+
+button {
+    padding: 20px;
+    border-radius: 20px ;
+    border: #ff0000 solid 1px;
+    width: 80%;
+    color: #eb4a4a;
+    background-color: transparent;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+button:hover {
+    background-color: #e2a5a5;
+    column-rule-color: #ff0000;
+}
+
+
+
+
+
+
+
