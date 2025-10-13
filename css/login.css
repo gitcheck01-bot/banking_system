@@ -46,8 +46,9 @@ html, body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 80%;
+    align-self: stretch;
     width: 5px;
+    padding: 1rem 0;
 }
 
 .login-border-inner {
