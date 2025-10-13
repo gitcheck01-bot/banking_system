@@ -42,12 +42,29 @@ html, body {
   border-radius: 10px;
 }
 
+.login-border {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80%;
+    width: 5px;
+}
+
+.login-border-inner {
+    width: 3px;
+    height: 100%;
+    font-weight: bold;
+    background: linear-gradient(180deg, #2563eb 0%, #1e40af 100%);
+    border-radius: 5px;
+}
+
 .login-content {
     width: 50%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
 }
 
 .login-header {
