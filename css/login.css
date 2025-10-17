@@ -148,9 +148,7 @@ html, body {
 
 }
 
-.login-input input:focus {
-    border: none;
-}
+
 
 .login-input:hover {
     border: 1px solid blue;
