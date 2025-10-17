@@ -6,7 +6,7 @@ html, body {
 }
 
 .login-container {
-    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%); /* Match main site */
     min-height: 100%; 
     display: flex;
     justify-content: center;
@@ -91,7 +91,10 @@ html, body {
     flex-direction: row;
     font-weight: bold;
     font-size: 1.5rem;
-    align-items: center;}
+    align-items: center;
+    color: #2563eb; /* Consistent blue */
+
+}
 
 .login-brand h1{
     margin-left: 0.5rem;
@@ -99,7 +102,8 @@ html, body {
 }
 
 .login-brand i {
-    color: #382ca8;
+
+    color: #2563eb; /* Consistent blue */
     font-size: 4rem;
 }
 
@@ -145,6 +149,11 @@ html, body {
 
 }
 
+.login-input input:focus {
+    outline: none;
+    border: 1px solid #2563eb;
+}
+
 .login-input:hover {
     border: 1px solid blue;
 }
@@ -154,6 +163,21 @@ html, body {
     background-position: 10px;
     padding-left: 10px;
     background-repeat: no-repeat;
+}
+
+/* Add validation styles */
+.login-input.error {
+    border-color: #dc2626;
+}
+
+.login-input.success {
+    border-color: #16a34a;
+}
+
+.error-message {
+    color: #dc2626;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
 }
 
 .login-option {
@@ -200,20 +224,30 @@ html, body {
     color: rgb(35, 35, 187);
     padding: 0.7rem;
     border-radius: 5px;
-  transition: transform 0.2s ease;}
-
-.btn:hover {
-    background: #1034ff;
-    transform: translateY(-5px);
-    box-shadow: 5px 5px 15px red;
+  transition: transform 0.2s ease;
 }
 
+.btn:focus {
+    outline: 2px solid #f59e0b; /* Match main site focus */
+    outline-offset: 2px;
+}
 
 .btn-login {
-    background: #1238e2;
+      background: #1238e2;
     color: white;
     border: none;
     margin-top: 1rem;
+    width: 100%; /* Make button full width */
+    padding: 1rem;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.btn-login:hover {
+    background: #0d2ec7;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(18, 56, 226, 0.4); /* Brand-appropriate shadow */
 }
 
 .login-footer {
