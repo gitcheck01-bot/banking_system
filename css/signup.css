@@ -6,7 +6,7 @@ html, body {
 }
 
 .signup-container {
-    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     min-height: 100%;
     display: flex;
     justify-content: center;
@@ -72,7 +72,7 @@ html, body {
 
 .signup-header {
     text-align: center;
-    color: #2563eb;
+    color: #667eea;
 }
 
 .signup-header h2 {
@@ -97,11 +97,11 @@ html, body {
 
 .signup-brand h1{
     margin-left: 0.5rem;
-    color: #1e40af;
+    color: #667eea;
 }
 
 .signup-brand i {
-    color: #1e40af;
+    color: #667eea;
     font-size: 3rem;
 }
 
@@ -182,12 +182,14 @@ html, body {
 }
 
 .signup-option a {
-    color: #1e40af;
+    color: #667eea;
     text-decoration: none;
     font-weight: 600;
+    transition: color 0.3s ease;
 }
 
 .signup-option a:hover {
+    color: #764ba2;
     text-decoration: underline;
 }
 
@@ -218,17 +220,16 @@ html, body {
 }
 
 .btn:hover {
-    background: #1034ff;
-    transform: translateY(-5px);
-    box-shadow: 5px 5px 15px rgba(37, 99, 235, 0.4);
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(251, 191, 36, 0.4);
 }
 
-
 .btn-signup {
-    background: #1238e2;
-    color: white;
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    color: #1f2937;
     border: none;
     margin-top: 1rem;
+    font-weight: 600;
 }
 
 .signup-footer {
@@ -244,16 +245,17 @@ html, body {
 }
 
 .signup-footer a {
-    color: rgb(35, 35, 187);
+    color: #667eea;
     font-weight: bold;
     text-decoration: none;
     cursor: pointer;
     font-size: 1rem;
     margin-left: 0.5rem;
+    transition: color 0.3s ease;
 }
 
 .signup-footer a:hover {
-     color: rgb(27, 118, 214);
+    color: #764ba2;
 }
 
 @media (max-width: 968px) {

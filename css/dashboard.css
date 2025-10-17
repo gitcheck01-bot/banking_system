@@ -41,12 +41,12 @@ body {
 
 .brand i {
     margin-right: 10px;
-    color: #f39c12;
+    color: #fbbf24;
     font-size: 2rem;
 }
 
 .brand span {
-    color: #f39c12;
+    color: #fbbf24;
     font-size: 1.5rem;
 }
 
@@ -69,13 +69,13 @@ body {
 .nav-item:hover {
     background: #34495e;
     color: white;
-    border-left-color: #e74c3c;
+    border-left-color: #fbbf24;
 }
 
 .nav-item.active {
     background: #34495e;
     color: white;
-    border-left: 4px solid #e74c3c;
+    border-left: 4px solid #fbbf24;
 }
 
 .nav-item i {
@@ -96,9 +96,9 @@ body {
 .logout-btn {
     padding: 15px;
     border-radius: 8px;
-    border: 1px solid #e74c3c;
+    border: 1px solid #fbbf24;
     width: 100%;
-    color: #e74c3c;
+    color: #fbbf24;
     background-color: transparent;
     font-weight: bold;
     font-size: 1rem;
@@ -110,8 +110,8 @@ body {
 }
 
 .logout-btn:hover {
-    background-color: #e74c3c;
-    color: white;
+    background-color: #fbbf24;
+    color: #1f2937;
 }
 
 .logout-btn i {
@@ -204,10 +204,28 @@ body {
 
 .user-card-icon i {
     font-size: 2rem;
-    color: #3498db;
-    background: #ebf5fb;
     padding: 15px;
     border-radius: 10px;
+}
+
+.user-cards:nth-child(1) .user-card-icon i {
+    color: #3498db;
+    background: #ebf5fb;
+}
+
+.user-cards:nth-child(2) .user-card-icon i {
+    color: #10b981;
+    background: #d1fae5;
+}
+
+.user-cards:nth-child(3) .user-card-icon i {
+    color: #ef4444;
+    background: #fee2e2;
+}
+
+.user-cards:nth-child(4) .user-card-icon i {
+    color: #8b5cf6;
+    background: #ede9fe;
 }
 
 .card-info {
@@ -233,9 +251,18 @@ body {
 
 .card-info p {
     font-size: 0.9rem;
-    color: #27ae60;
     margin: 0;
     font-weight: 500;
+}
+
+.user-cards:nth-child(1) .card-info p,
+.user-cards:nth-child(2) .card-info p,
+.user-cards:nth-child(4) .card-info p {
+    color: #10b981;
+}
+
+.user-cards:nth-child(3) .card-info p {
+    color: #ef4444;
 }
 
 /******   ......................................................................     **********/
@@ -402,12 +429,11 @@ body {
 
 
 .accounts-grid {
-    
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-left: 300px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .account-card {
@@ -418,10 +444,12 @@ body {
     border: 1px solid #e5e7eb;
     position: relative;
     overflow: hidden;
-        font-weight: bold;
-    font-size: 2rem;
-    color: #2c3e50;
-    margin: 0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.account-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
 .account-card::before {
