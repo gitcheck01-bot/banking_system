@@ -185,22 +185,6 @@
                 <p>&copy; 2024 SecureBank. All rights reserved.</p>
             </div>
     </footer>
-
-    <script>
-        const hamburger = document.querySelector('.hamburger');
-        const navMenu = document.querySelector('.nav-menu');
-
-        hamburger.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-            hamburger.classList.toggle('active');
-        });
-
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', () => {
-                navMenu.classList.remove('active');
-                hamburger.classList.remove('active');
-            });
-        });
-    </script>
+<script src="js/main.js"></script>
 </body>
 </html>

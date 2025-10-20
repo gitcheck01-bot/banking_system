@@ -3,20 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - SecureBank</title>
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
     <link rel="stylesheet" href="../css/dashboard.css">
-    <meta name="author" content="Gaurab Aryal">
-    <title>SecureBank</title>
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-/>
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
-<div class="dashboard-contain">
-
-   <div class="sidebar">
+    <!-- Sidebar -->
+    <div class="sidebar">
         <div class="sidebar-header">
             <div class="brand">
                 <i class="fas fa-university"></i>
@@ -29,23 +23,23 @@
                 <i class="fas fa-tachometer-alt"></i>
                 <span>Overview</span>
             </a>
-            <a href="#accounts" class="nav-item" data-section="accounts">
+            <a href="#" class="nav-item" data-section="accounts">
                 <i class="fas fa-wallet"></i>
                 <span>Accounts</span>
             </a>
-            <a href="#transaction" class="nav-item" data-section="transactions">
+            <a href="#" class="nav-item" data-section="transactions">
                 <i class="fas fa-exchange-alt"></i>
                 <span>Transactions</span>
             </a>
-            <a href="#transfer" class="nav-item" data-section="transfer">
+            <a href="#" class="nav-item" data-section="transfer">
                 <i class="fas fa-paper-plane"></i>
                 <span>Transfer</span>
             </a>
-            <a href="#card" class="nav-item" data-section="cards">
+            <a href="#" class="nav-item" data-section="cards">
                 <i class="fas fa-credit-card"></i>
                 <span>Cards</span>
             </a>
-            <a href="#setting" class="nav-item" data-section="settings">
+            <a href="#" class="nav-item" data-section="settings">
                 <i class="fas fa-cog"></i>
                 <span>Settings</span>
             </a>
@@ -59,69 +53,80 @@
         </div>
     </div>
     
-    <div class="dashboard-container">
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-left">
+                <button class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1 id="pageTitle">Dashboard Overview</h1>
+            </div>
+            <div class="header-right">
+                
+                <div class="user-profile">
+                    <img src="../images/image.png" alt="Profile" class="profile-img">
+                    <div class="user-info">
+                        <span class="user-name" id="userName"> <?php echo $name; ?></span>
+                        <span class="user-id" id="userId">ID:  <?php echo $id; ?></span>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Dashboard Content -->
         <div class="dashboard-content">
-            <div class="dashboard-header">
-                <h1>Dashboard Overview</h1>
-                <div class="dash-profile">
-                    <img src="../images/image.png" alt="profile-picture" height="100px" width="100px">
-                    <div class="dash-name-id">
-                        <span>Gaurab Aryal</span>
-                        <label>ID : #1245</label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="dashboard-details">
-                <div class="user-amount">
-                    <div class="user-cards">
-                        <div class="user-card-icon">
-                            <i class="fas fa-file"></i>
-                            <div class="card-info">
-                                <span>Total Balance</span>
-                                <label>$12,45000</label>
-                                <p>+2.5% from last month</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="user-cards">
-                        <div class="user-card-icon">
-                            <i class="fas fa-arrow-down"></i>
-                            <div class="card-info">
-                                <span>Income</span>
-                                <label for="price">$8,200.00</label>
-                                <p>+12% from last month</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="user-cards">
-                        <div class="user-card-icon">
+            <!-- Overview Section -->
+            <div id="overview" class="content-section active">
+                <!-- Account Summary Cards -->
+                <div class="summary-cards">
+                    <div class="summary-card primary">
+                        <div class="card-icon">
                             <i class="fas fa-wallet"></i>
-                            <div class="card-info">
-                                <span>Expenses</span>
-                                <label for="price">$3,750.00</label>
-                                <p>+5% from last month</p>
-                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3>Total Balance</h3>
+                            <p class="amount" id="totalBalance">$ <?php echo $total_balance; ?></p>
+                            <span class="change positive">+2.5% from last month</span>
                         </div>
                     </div>
-
-                    <div class="user-cards">
-                        <div class="user-card-icon">
+                    
+                    <div class="summary-card success">
+                        <div class="card-icon">
+                            <i class="fas fa-arrow-down"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Income</h3>
+                            <p class="amount">$ <?php echo $income; ?></p>
+                            <span class="change positive">+12% from last month</span>
+                        </div>
+                    </div>
+                    
+                    <div class="summary-card warning">
+                        <div class="card-icon">
+                            <i class="fas fa-arrow-up"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Expenses</h3>
+                            <p class="amount">$ <?php echo $expenses; ?></p>
+                            <span class="change negative">+5% from last month</span>
+                        </div>
+                    </div>
+                    
+                    <div class="summary-card info">
+                        <div class="card-icon">
                             <i class="fas fa-piggy-bank"></i>
-                            <div class="card-info">
-                                <span>Savings</span>
-                                <label for="price">$4,500.00</label>
-                                <p>+8% from last month</p>
-                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3>Savings</h3>
+                            <p class="amount">$ <?php echo $savings; ?></p>
+                            <span class="change positive">+8% from last month</span>
                         </div>
                     </div>
-
                 </div>
-            </div>
-
-            <!-- Quick Actions -->
+                
+                <!-- Quick Actions -->
                 <div class="quick-actions">
                     <h2>Quick Actions</h2>
                     <div class="action-buttons">
@@ -155,16 +160,12 @@
                     </div>
                 </div>
             </div>
-
-        </div>
-    </div>
-     
             
             <!-- Accounts Section -->
             <div id="accounts" class="content-section">
                 <div class="section-header">
                     <h2>My Accounts</h2>
-                   
+                    
                 </div>
                 
                 <div class="accounts-grid">
@@ -177,8 +178,8 @@
                             <div class="account-number">****1234</div>
                         </div>
                         <div class="account-balance">
-                            <span class="balance-label">Available Balance</span>
-                            <span class="balance-amount">$8,450.00</span>
+                            <span class="balance-label">Total Balance</span>
+                            <span class="balance-amount">$ <?php echo $total_balance; ?></span>
                         </div>
                         <div class="account-actions">
                             <button class="btn btn-sm">Transfer</button>
@@ -196,7 +197,7 @@
                         </div>
                         <div class="account-balance">
                             <span class="balance-label">Available Balance</span>
-                            <span class="balance-amount">$4,000.00</span>
+                            <span class="balance-amount">$ <?php echo $savings_balance; ?></span>
                         </div>
                         <div class="account-actions">
                             <button class="btn btn-sm">Transfer</button>
@@ -207,7 +208,7 @@
             </div>
             
             <!-- Transactions Section -->
-            <div id="transaction" class="content-section">
+            <div id="transactions" class="content-section">
                 <div class="section-header">
                     <h2>Transaction History</h2>
                     <div class="filters">
@@ -245,8 +246,8 @@
                             <div class="form-group">
                                 <label>From Account</label>
                                 <select class="form-control" id="fromAccount">
-                                    <option value="checking">Checking Account (****1234) - $8,450.00</option>
-                                    <option value="savings">Savings Account (****5678) - $4,000.00</option>
+                                    <option value="checking">Checking Account (****1234) - $ <?php echo $checking_balance; ?></option>
+                                    <option value="savings">Savings Account (****5678) - $ <?php echo $savings_balance; ?></option>
                                 </select>
                             </div>
                             
@@ -283,7 +284,7 @@
                                 </div>
                             </div>
                             
-                            <button type="submit" class="btn btn-primary btn-full">
+                            <button type="submit" class="btn btn-primary btn-full" name="send-money">
                                 <i class="fas fa-paper-plane"></i>
                                 Send Money
                             </button>
@@ -293,9 +294,10 @@
             </div>
             
             <!-- Cards Section -->
-            <div id="card" class="content-section">
+            <div id="cards" class="content-section">
                 <div class="section-header">
                     <h2>My Cards</h2>
+                 
                 </div>
                 
                 <div class="cards-grid">
@@ -336,28 +338,25 @@
             </div>
             
             <!-- Settings Section -->
-            <div id="setting" class="content-section">
+            <div id="settings" class="content-section">
                 <div class="settings-container">
                     <div class="settings-section">
                         <h3>Profile Information</h3>
-                        <form class="settings-form">
-                            <div class="form-row">
+                        <form class="settings-form" name="dashboard-form">
+                            
                                 <div class="form-group">
-                                    <label>First Name</label>
-                                    <input type="text" class="form-control" value="John">
+                                    <label>Name</label>
+                                    <input type="text" class="form-control" >
                                 </div>
-                                <div class="form-group">
-                                    <label>Last Name</label>
-                                    <input type="text" class="form-control" value="Doe">
-                                </div>
-                            </div>
+                                
+                            
                             <div class="form-group">
                                 <label>Email</label>
-                                <input type="email" class="form-control" value="john.doe@example.com">
+                                <input type="email" class="form-control" >
                             </div>
                             <div class="form-group">
                                 <label>Phone</label>
-                                <input type="tel" class="form-control" value="+1 (555) 123-4567">
+                                <input type="tel" class="form-control">
                             </div>
                             <button type="submit" class="btn btn-primary">Update Profile</button>
                         </form>
@@ -399,7 +398,11 @@
                         </div>
                         <button class="btn btn-outline">Change Password</button>
                     </div>
-
-</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script type="module" src="../js/dashboard.js"></script>
 </body>
 </html>
