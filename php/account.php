@@ -1,4 +1,10 @@
 <?php
+
+session_start();
+
+$admin_email = "void@gmail.com";
+
+
 $servername = "localhost";
 $username = "root";
 $xampp_password = "";
@@ -54,11 +60,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $result = mysqli_query($conn, $sql);
 
         if (mysqli_num_rows($result) > 0) {
+            $_SESSION['email'] = $email;
             echo "<script>
-                    window.location.href = 'pages/dashboard.html';
+                 window.location.href = '../pages/dashboard.html';
                   </script>";
         } else {
-            echo "<script>alert('❌ Invalid email or password!');</script>";
+            echo "<script>
+            window.location.href = '../pages/dashboard.html';
+            alert('❌ Invalid email or password!');</script>";
         }
     }
 }
