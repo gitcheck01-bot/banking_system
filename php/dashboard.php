@@ -4,10 +4,10 @@ include("../php/account.php");
 
 $servername = "localhost";
 $username = "root";
-$password = "";
+$xampp_password = "";
 $database = "test";
 
-$conn = mysqli_connect($servername, $username, $password, $database);
+$conn = mysqli_connect($servername, $username, $xampp_password, $database);
 
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
@@ -246,4 +246,416 @@ if (mysqli_num_rows($result_amount) > 0) {
     $expenses = $amount_data['expenses'];
 }
 
+
+
+?>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - SecureBank</title>
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand">
+                <i class="fas fa-university"></i>
+                <span>SecureBank</span>
+            </div>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <a href="#" class="nav-item active" data-section="overview">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Overview</span>
+            </a>
+            <a href="#" class="nav-item" data-section="accounts">
+                <i class="fas fa-wallet"></i>
+                <span>Accounts</span>
+            </a>
+            <a href="#" class="nav-item" data-section="transactions">
+                <i class="fas fa-exchange-alt"></i>
+                <span>Transactions</span>
+            </a>
+            <a href="#" class="nav-item" data-section="transfer">
+                <i class="fas fa-paper-plane"></i>
+                <span>Transfer</span>
+            </a>
+            <a href="#" class="nav-item" data-section="cards">
+                <i class="fas fa-credit-card"></i>
+                <span>Cards</span>
+            </a>
+            <a href="#" class="nav-item" data-section="settings">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+        </nav>
+        
+        <div class="sidebar-footer">
+            <button class="logout-btn" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </button>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-left">
+                <button class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1 id="pageTitle">Dashboard Overview</h1>
+            </div>
+            <div class="header-right">
+                <div class="user-profile">
+                    <img src="../images/image.png" alt="Profile" class="profile-img">
+                    <div class="user-info">
+                        <span class="user-name"><?php echo $name; ?></span>
+                        <span class="user-id">ID: <?php echo $user_id; ?></span>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Dashboard Content -->
+        <div class="dashboard-content">
+            <!-- Overview Section -->
+            <div id="overview" class="content-section active">
+                <!-- Account Summary Cards -->
+                <div class="summary-cards">
+                    <div class="summary-card primary">
+                        <div class="card-icon">
+                            <i class="fas fa-wallet"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Total Balance</h3>
+                            <p class="amount">Rs<?php echo number_format($total_balance, 2); ?></p>
+                            <span class="change positive">+0% from last month</span>
+                        </div>
+                    </div>
+                    
+                    <div class="summary-card success">
+                        <div class="card-icon">
+                            <i class="fas fa-arrow-down"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Income</h3>
+                            <p class="amount">Rs<?php echo number_format($income, 2); ?></p>
+                            <span class="change positive">+0% from last month</span>
+                        </div>
+                    </div>
+                    
+                    <div class="summary-card warning">
+                        <div class="card-icon">
+                            <i class="fas fa-arrow-up"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Expenses</h3>
+                            <p class="amount">Rs<?php echo number_format($expenses, 2); ?></p>
+                            <span class="change negative">+0% from last month</span>
+                        </div>
+                    </div>
+                    
+                    <div class="summary-card info">
+                        <div class="card-icon">
+                            <i class="fas fa-piggy-bank"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Savings</h3>
+                            <p class="amount">Rs<?php echo number_format($savings, 2); ?></p>
+                            <span class="change positive">+0% from last month</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Quick Actions -->
+                <div class="quick-actions">
+                    <h2>Quick Actions</h2>
+                    <div class="action-buttons">
+                        <button class="action-btn" onclick="showSection('transfer')">
+                            <i class="fas fa-paper-plane"></i>
+                            <span>Send Money</span>
+                        </button>
+                        <button class="action-btn" onclick="showSection('transactions')">
+                            <i class="fas fa-history"></i>
+                            <span>View History</span>
+                        </button>
+                        <button class="action-btn" onclick="showSection('cards')">
+                            <i class="fas fa-credit-card"></i>
+                            <span>Manage Cards</span>
+                        </button>
+                        <button class="action-btn">
+                            <i class="fas fa-download"></i>
+                            <span>Download Statement</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Recent Transactions -->
+                <div class="recent-transactions">
+                    <div class="section-header">
+                        <h2>Recent Transactions</h2>
+                        <button class="view-all-btn" onclick="showSection('transactions')">View All</button>
+                    </div>
+                    <div class="transactions-list" id="recentTransactionsList">
+                        <!-- Transactions will be loaded here -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Accounts Section -->
+            <div id="accounts" class="content-section">
+                <div class="section-header">
+                    <h2>My Accounts</h2>
+                </div>
+                
+                <div class="accounts-grid">
+                    <div class="account-card checking">
+                        <div class="account-header">
+                            <div class="account-type">
+                                <i class="fas fa-university"></i>
+                                <span>Checking Account</span>
+                            </div>
+                            <div class="account-number">****1234</div>
+                        </div>
+                        <div class="account-balance">
+                            <span class="balance-label">Total Balance</span>
+                            <span class="balance-amount">Rs<?php echo number_format($total_balance, 2); ?></span>
+                        </div>
+                        <div class="account-actions">
+                            <button class="btn btn-sm" onclick="showSection('transfer')">Transfer</button>
+                            <button class="btn btn-sm btn-outline">Details</button>
+                        </div>
+                    </div>
+                    
+                    <div class="account-card savings">
+                        <div class="account-header">
+                            <div class="account-type">
+                                <i class="fas fa-piggy-bank"></i>
+                                <span>Savings Account</span>
+                            </div>
+                            <div class="account-number">****5678</div>
+                        </div>
+                        <div class="account-balance">
+                            <span class="balance-label">Available Balance</span>
+                            <span class="balance-amount">Rs <?php echo number_format($savings); ?></span>
+                        </div>
+                        <div class="account-actions">
+                            <button class="btn btn-sm" onclick="showSection('transfer')">Transfer</button>
+                            <button class="btn btn-sm btn-outline">Details</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Transactions Section -->
+            <div id="transactions" class="content-section">
+                <div class="section-header">
+                    <h2>Transaction History</h2>
+                    <div class="filters">
+                        <select class="filter-select">
+                            <option>All Transactions</option>
+                            <option>Income</option>
+                            <option>Expenses</option>
+                            <option>Transfers</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="transactions-table">
+                    <div class="table-header">
+                        <div class="table-row">
+                            <div class="table-cell">Date</div>
+                            <div class="table-cell">Description</div>
+                            <div class="table-cell">Category</div>
+                            <div class="table-cell">Amount</div>
+                            <div class="table-cell">Status</div>
+                        </div>
+                    </div>
+                    <div class="table-body" id="transactionsTableBody">
+                        <!-- Transactions will be loaded here -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Transfer Section -->
+            <div id="transfer" class="content-section">
+                <div class="transfer-container">
+                    <div class="transfer-form-card">
+                        <h2>Send Money</h2>
+                        <form id="transferForm" name="transfer_form" method="POST" action="../php/dashboard.php">
+                            <div class="form-group">
+                                <label>From Account</label>
+                                <select class="form-control" name="from_account" id="fromAccount" required>
+                                    <option value="Checking Account">Checking Account (****1234) - Rs <?php echo number_format($total_balance, 2); ?></option>
+                                    <option value="Savings Account">Savings Account (****5678) - Rs <?php echo number_format($savings, 2); ?></option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>To Account/Email</label>
+                                <input type="text" class="form-control" id="toAccount" placeholder="Enter account number or email" name="transfer_email" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Amount</label>
+                                <div class="amount-input">
+                                    <span class="currency">Rs</span>
+                                    <input type="number" class="form-control" id="transferAmount" placeholder="0.00" step="0.01" min="0.01" name="transfer_amount" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Description (Optional)</label>
+                                <input type="text" class="form-control" id="transferDescription" placeholder="What's this for?" name="transfer_description">
+                            </div>
+                            
+                            <div class="transfer-summary">
+                                <div class="summary-row">
+                                    <span>Transfer Amount:</span>
+                                    <span id="summaryAmount">Rs0.00</span>
+                                </div>
+                                <div class="summary-row">
+                                    <span>Transfer Fee:</span>
+                                    <span>Rs0.00</span>
+                                </div>
+                                <div class="summary-row total">
+                                    <span>Total:</span>
+                                    <span id="summaryTotal">Rs0.00</span>
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary btn-full" name="transfer">
+                                <i class="fas fa-paper-plane"></i>
+                                Send Money
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Cards Section -->
+            <div id="cards" class="content-section">
+                <div class="section-header">
+                    <h2>My Cards</h2>
+                </div>
+                
+                <div class="cards-grid">
+                    <div class="credit-card primary">
+                        <div class="card-header">
+                            <div class="card-type">Debit Card</div>
+                            <i class="fab fa-cc-visa"></i>
+                        </div>
+                        <div class="card-chip"></div>
+                        <div class="card-number">**** **** **** 1234</div>
+                        <div class="card-footer">
+                            <div class="card-holder"><?php echo strtoupper($name); ?></div>
+                            <div class="card-expiry">12/25</div>
+                        </div>
+                        <div class="card-actions">
+                            <button class="btn btn-sm">Block Card</button>
+                            <button class="btn btn-sm btn-outline">Settings</button>
+                        </div>
+                    </div>
+                    
+                    <div class="credit-card secondary">
+                        <div class="card-header">
+                            <div class="card-type">Credit Card</div>
+                            <i class="fab fa-cc-mastercard"></i>
+                        </div>
+                        <div class="card-chip"></div>
+                        <div class="card-number">**** **** **** 5678</div>
+                        <div class="card-footer">
+                            <div class="card-holder"><?php echo strtoupper($name); ?></div>
+                            <div class="card-expiry">08/26</div>
+                        </div>
+                        <div class="card-actions">
+                            <button class="btn btn-sm">Block Card</button>
+                            <button class="btn btn-sm btn-outline">Settings</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Settings Section -->
+            <div id="settings" class="content-section">
+                <div class="settings-container">
+                    <div class="settings-section">
+                        <h3>Profile Information</h3>
+                        <form class="settings-form" name="setting_form" action="../php/dashboard.php" method="POST">
+                            <div class="form-group">
+                                <label>Name</label>
+                                <input type="text" name="setting_name" class="form-control" value="<?php echo $name; ?>" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" name="setting_email" class="form-control" value="<?php echo $email; ?>" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Phone</label>
+                                <input type="tel" name="setting_phone" class="form-control" placeholder="Enter phone number">
+                            </div>
+                            <button type="submit" class="btn btn-primary" name="update_profile">Update Profile</button>
+                        </form>
+                    </div>
+                    
+                    <div class="settings-section">
+                        <h3>Security Settings</h3>
+                        <div class="security-options">
+                            <div class="security-item">
+                                <div class="security-info">
+                                    <h4>Two-Factor Authentication</h4>
+                                    <p>Add an extra layer of security to your account</p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <div class="security-item">
+                                <div class="security-info">
+                                    <h4>Email Notifications</h4>
+                                    <p>Receive email alerts for transactions</p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <div class="security-item">
+                                <div class="security-info">
+                                    <h4>SMS Notifications</h4>
+                                    <p>Receive SMS alerts for large transactions</p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <button class="btn btn-outline">Change Password</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script type="module" src="../js/dashboard.js"></script>
+</body>
+</html>
+
+
+<?php
+// Close connection at the very end
 mysqli_close($conn);
+?>

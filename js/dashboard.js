@@ -12,7 +12,7 @@ let userAccounts = [
         id: '1',
         account_type: 'checking',
         account_number: '****1234',
-        balance: '8450.00'
+        balance: '84.00'
     },
     {
         id: '2',

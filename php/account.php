@@ -1,7 +1,5 @@
 <?php
 
-session_start();
-
 $admin_email = "void@gmail.com";
 
 
@@ -40,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 if (mysqli_query($conn, $sql)) {
                     echo "<script>
-                            window.location.href = 'pages/login.html';
+                            window.location.href = '../pages/login.html';
                           </script>";
                 } else {
                     echo "<script>alert('❌ Error: " . mysqli_error($conn) . "');</script>";
@@ -62,14 +60,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (mysqli_num_rows($result) > 0) {
             $_SESSION['email'] = $email;
             echo "<script>
-                 window.location.href = '../pages/dashboard.html';
+                 window.location.href = 'dashboard.php';
                   </script>";
-        } else {
-            echo "<script>
-            window.location.href = '../pages/dashboard.html';
-            alert('❌ Invalid email or password!');</script>";
-        }
+        } 
     }
 }
 
 mysqli_close($conn);
+
+?>
+
+
