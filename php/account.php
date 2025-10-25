@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 $admin_email = "void@gmail.com";
 
 
@@ -33,8 +35,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo "<script>alert('⚠️ Email already registered!');</script>";
             } else {
                 // insert user
-                $sql = "INSERT INTO users (username, email, password) 
-                        VALUES ('$name', '$sign_email', '$login_password')";
+                $sql = "INSERT INTO users (username, phone, email, password) 
+                        VALUES ('$name', '$number', '$sign_email', '$login_password')";
 
                 if (mysqli_query($conn, $sql)) {
                     echo "<script>

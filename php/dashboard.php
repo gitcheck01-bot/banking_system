@@ -1,5 +1,4 @@
 <?php
-session_start();
 include("../php/account.php");
 
 $servername = "localhost";
@@ -13,10 +12,17 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-// ✅ get logged-in email from session
+//  get logged-in email from session
+if (!isset($_SESSION['email']) || empty($_SESSION['email'])) {
+    echo "<script>
+        alert('Please login first');
+        window.location.href='../pages/login.html';
+    </script>";
+    exit();
+}
 $email = $_SESSION['email'] ?? $admin_email;
 
-// ✅ get user info
+//  get user info
 $sql_user = "SELECT id, username, email, phone FROM users WHERE email='$email'";
 $result_user = mysqli_query($conn, $sql_user);
 
@@ -78,6 +84,42 @@ if (mysqli_num_rows($result_amount) > 0) {
     $savings = 500.00;
 }
 
+
+/////////// check transactions table exist 
+$check_transactions_table = "SHOW TABLES LIKE 'transactions'";
+$check_transactions = mysqli_query($conn, $check_transactions_table);
+
+if (mysqli_num_rows($check_transactions) === 0) {
+      
+    $create_transactions_table = "CREATE TABLE transactions (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    type ENUM('transfer_sent', 'transfer_received', 'expense', 'income'),
+    amount DECIMAL(10,2),
+    description VARCHAR(255),
+    from_account VARCHAR(50),
+    to_account VARCHAR(100),
+    status ENUM('completed', 'pending', 'failed'),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);";
+
+    if (mysqli_query($conn, $create_transactions_table)) {
+        echo "✅ Table 'transactions' created successfully.<br>";
+    } else {
+        die("❌ Error creating 'transactions': " . mysqli_error($conn));
+    }
+}
+
+$sql_transactions = "SELECT * FROM transactions WHERE user_id='$user_id' ORDER BY created_at DESC LIMIT 10";
+$result_transactions = mysqli_query($conn, $sql_transactions);
+
+if ($result_transactions && mysqli_num_rows($result_transactions) > 0) {
+    while($row = mysqli_fetch_assoc($result_transactions)) {
+        $transactions[] = $row;
+    }
+}
+
 // Handle Profile Update
 if (isset($_POST["update_profile"])) {
     $setting_name = mysqli_real_escape_string($conn, $_POST["setting_name"]);
@@ -134,6 +176,10 @@ if (isset($_POST["transfer"])) {
             // Check sufficient balance based on selected account
             if ($from_account == 'Checking Account') {
                 if ($sender_balance >= $transfer_amount) {
+                      
+                    $summaryTotal = $transfer_amount;  ////// latter for data to be shown when entry transfer amount 
+
+
                     // Deduct from sender's checking account
                     $new_balance = $sender_balance - $transfer_amount;
                     $sql_sender_update = "UPDATE amounts 
@@ -448,7 +494,7 @@ if (mysqli_num_rows($result_amount) > 0) {
                         </div>
                         <div class="account-balance">
                             <span class="balance-label">Available Balance</span>
-                            <span class="balance-amount">Rs <?php echo number_format($savings); ?></span>
+                            <span class="balance-amount">Rs <?php echo number_format($savings, 2); ?></span>
                         </div>
                         <div class="account-actions">
                             <button class="btn btn-sm" onclick="showSection('transfer')">Transfer</button>
@@ -476,10 +522,10 @@ if (mysqli_num_rows($result_amount) > 0) {
                     <div class="table-header">
                         <div class="table-row">
                             <div class="table-cell">Date</div>
-                            <div class="table-cell">Description</div>
+                            <div class="table-cell">From</div>
                             <div class="table-cell">Category</div>
                             <div class="table-cell">Amount</div>
-                            <div class="table-cell">Status</div>
+                            <div class="table-cell">Description</div>
                         </div>
                     </div>
                     <div class="table-body" id="transactionsTableBody">
@@ -493,7 +539,7 @@ if (mysqli_num_rows($result_amount) > 0) {
                 <div class="transfer-container">
                     <div class="transfer-form-card">
                         <h2>Send Money</h2>
-                        <form id="transferForm" name="transfer_form" method="POST" action="../php/dashboard.php">
+                        <form id="transferForm" name="transfer_form" method="POST" action="dashboard.php">
                             <div class="form-group">
                                 <label>From Account</label>
                                 <select class="form-control" name="from_account" id="fromAccount" required>
