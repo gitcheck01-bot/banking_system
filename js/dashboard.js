@@ -118,15 +118,16 @@ function setupMobileMenu() {
     }
 }
 
-// Global functions for navigation
-window.showSection = showSection;
-
 // Logout function
 function logout() {
     if(confirm('Are you sure you want to logout?')) {
         window.location.href = '../php/logout.php';
     }
 }
+
+// Global functions for navigation
+window.showSection = showSection;
+window.logout = logout;
 
 // Filter transactions by type
 function filterTransactions(type) {
