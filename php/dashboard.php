@@ -28,8 +28,10 @@ $result_user = mysqli_query($conn, $sql_user);
 
 if (!$result_user || mysqli_num_rows($result_user) === 0) {
     echo "<script>
-   window.location.href='../pages/signup.html';
-   </script>";
+        alert('User not found. Please signup.');
+        window.location.href='../pages/signup.html';
+    </script>";
+    exit();
 }
 
 $row_user = mysqli_fetch_assoc($result_user);
@@ -145,14 +147,19 @@ if (isset($_POST["change_password"])) {
     }
 }
 
+// Fetch transactions for current user
 $transactions = [];
 $sql_transactions = "SELECT * FROM transactions WHERE user_id='$user_id' ORDER BY created_at DESC";
 $result_transactions = mysqli_query($conn, $sql_transactions);
 
-if ($result_transactions && mysqli_num_rows($result_transactions) > 0) {
-    while($row = mysqli_fetch_assoc($result_transactions)) {
-        $transactions[] = $row;
+if ($result_transactions) {
+    if (mysqli_num_rows($result_transactions) > 0) {
+        while($row = mysqli_fetch_assoc($result_transactions)) {
+            $transactions[] = $row;
+        }
     }
+} else {
+    error_log("Transaction query failed: " . mysqli_error($conn));
 }
 
 // Handle Profile Update
@@ -535,6 +542,9 @@ if (mysqli_num_rows($result_amount) > 0) {
                     </div>
                    <div class="transactions-list" id="recentTransactionsList">
 <?php
+// Debug: Check user_id and transaction count
+echo "<!-- DEBUG: User ID: $user_id, Transaction Count: " . count($transactions) . " -->";
+
 if (!empty($transactions)) {
     $recent_count = 0;
     foreach ($transactions as $t) {
