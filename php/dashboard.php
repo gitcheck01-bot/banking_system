@@ -524,10 +524,6 @@ if (mysqli_num_rows($result_amount) > 0) {
                             <i class="fas fa-credit-card"></i>
                             <span>Manage Cards</span>
                         </button>
-                        <button class="action-btn">
-                            <i class="fas fa-download"></i>
-                            <span>Download Statement</span>
-                        </button>
                     </div>
                 </div>
                 
@@ -545,22 +541,24 @@ if (!empty($transactions)) {
         if ($recent_count >= 10) break;
 
         $icon = $t['type'] === 'income' ? 'fa-arrow-down' : 'fa-arrow-up';
-        $colorClass = $t['type'] === 'income' ? 'positive' : 'negative';
+        $colorClass = $t['type'] === 'income' ? 'income' : 'expense';
         $amountPrefix = $t['type'] === 'income' ? '+' : '-';
 
-        $description = !empty($t['description']) ? $t['description'] : 'Transaction';
-        $from_to = !empty($t['to_account']) ? $t['to_account'] : (!empty($t['from_account']) ? $t['from_account'] : 'N/A');
+        $description = !empty($t['description']) ? htmlspecialchars($t['description']) : 'Transaction';
+        $from_to = !empty($t['to_account']) ? htmlspecialchars($t['to_account']) : (!empty($t['from_account']) ? htmlspecialchars($t['from_account']) : 'N/A');
 
         echo "
         <div class='transaction-item'>
-            <div class='transaction-icon $colorClass'>
-                <i class='fas $icon'></i>
+            <div class='transaction-info'>
+                <div class='transaction-icon $colorClass'>
+                    <i class='fas $icon'></i>
+                </div>
+                <div class='transaction-details'>
+                    <h4>$description</h4>
+                    <p>" . date('M d, Y H:i', strtotime($t['created_at'])) . "</p>
+                </div>
             </div>
-            <div class='transaction-details'>
-                <p class='transaction-title'>$description</p>
-                <p class='transaction-date'>" . date('M d, Y H:i', strtotime($t['created_at'])) . "</p>
-            </div>
-            <div class='transaction-amount $colorClass'>
+            <div class='transaction-amount " . ($t['type'] === 'income' ? 'positive' : 'negative') . "'>
                 {$amountPrefix}Rs" . number_format($t['amount'], 2) . "
             </div>
         </div>";
@@ -650,14 +648,15 @@ if (!empty($transactions)) {
                     if (!empty($transactions)) {
                         foreach ($transactions as $t) {
                             $date = date('M d, Y H:i', strtotime($t['created_at']));
-                            $from = !empty($t['from_account']) ? $t['from_account'] : 'N/A';
-                            $description = !empty($t['description']) ? $t['description'] : 'Transaction';
+                            $from = !empty($t['from_account']) ? htmlspecialchars($t['from_account']) : 'N/A';
+                            $description = !empty($t['description']) ? htmlspecialchars($t['description']) : 'Transaction';
+                            $category = ucfirst($t['type']);
 
                             echo "
                             <div class='table-row' data-type='{$t['type']}'>
                                 <div class='table-cell'>$date</div>
                                 <div class='table-cell'>$from</div>
-                                <div class='table-cell'>" . ucfirst($t['type']) . "</div>
+                                <div class='table-cell'>$category</div>
                                 <div class='table-cell'>Rs" . number_format($t['amount'], 2) . "</div>
                                 <div class='table-cell'>$description</div>
                             </div>";

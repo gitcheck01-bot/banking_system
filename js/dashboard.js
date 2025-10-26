@@ -181,51 +181,10 @@ function validatePasswordForm() {
     return true;
 }
 
-// Download statement function
-function downloadStatement() {
-    const rows = document.querySelectorAll('#transactionsTableBody .table-row');
-
-    if (rows.length === 0) {
-        alert('No transactions to download!');
-        return;
-    }
-
-    let csvContent = 'Date,From,Category,Amount,Description\n';
-
-    rows.forEach(row => {
-        const cells = row.querySelectorAll('.table-cell');
-        if (cells.length >= 5) {
-            const date = cells[0].textContent.trim();
-            const from = cells[1].textContent.trim();
-            const category = cells[2].textContent.trim();
-            const amount = cells[3].textContent.trim();
-            const description = cells[4].textContent.trim();
-
-            csvContent += `"${date}","${from}","${category}","${amount}","${description}"\n`;
-        }
-    });
-
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    const link = document.createElement('a');
-    const url = URL.createObjectURL(blob);
-
-    const today = new Date();
-    const dateStr = today.toISOString().split('T')[0];
-
-    link.setAttribute('href', url);
-    link.setAttribute('download', `transaction_statement_${dateStr}.csv`);
-    link.style.visibility = 'hidden';
-
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-}
-
 // Make functions globally available
 window.showPasswordModal = showPasswordModal;
 window.closePasswordModal = closePasswordModal;
 window.validatePasswordForm = validatePasswordForm;
-window.downloadStatement = downloadStatement;
 window.filterTransactions = filterTransactions;
 
 // Close modal when clicking outside
