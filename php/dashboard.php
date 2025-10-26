@@ -164,6 +164,7 @@ if (isset($_POST["transfer"])) {
         $sender_balance = $row_sender_amount['total_balance'];
         $sender_savings = $row_sender_amount['savings'];
 
+
         // Check if recipient exists
         $sql_recipient = "SELECT id FROM users WHERE email='$transfer_email'";
         $result_recipient = mysqli_query($conn, $sql_recipient);
@@ -179,13 +180,36 @@ if (isset($_POST["transfer"])) {
                       
                     $summaryTotal = $transfer_amount;  ////// latter for data to be shown when entry transfer amount 
 
+$transactions_id_temp = $user_id;
+$type = 'expense';
+$amount = $transfer_amount;
+$description = $transfer_description;
+$from_account = $from_account;
+$to_account = $transfer_email;
+$status = 'Checking Account';
 
+$sql_sender = "INSERT INTO transactions (user_id, type, amount, description, from_account, to_account, status)
+        VALUES ('$user_id', '$type', '$amount', '$description', '$from_account', '$to_account', '$status')";
+mysqli_query($conn, $sql_sender);
                     // Deduct from sender's checking account
                     $new_balance = $sender_balance - $transfer_amount;
                     $sql_sender_update = "UPDATE amounts 
                                            SET total_balance = $new_balance, 
                                                expenses = expenses + $transfer_amount 
                                            WHERE user_id='$user_id'";
+
+$transactions_id_temp = $recipient_id;
+$type = 'income';
+$amount = $transfer_amount;
+$description = $transfer_description;
+$from_account = $from_account;
+$to_account = $transfer_email;
+$status = 'Checking Account';
+
+$sql_recipient = "INSERT INTO transactions (user_id, type, amount, description, from_account, to_account, status)
+        VALUES ('$recipient_id', '$type', '$amount', '$description', '$from_account', '$to_account', '$status')";
+mysqli_query($conn, $sql_recipient);
+
 
                     // Add to recipient's checking account
                     $sql_recipient_update = "UPDATE amounts 
@@ -203,12 +227,37 @@ if (isset($_POST["transfer"])) {
                 }
             } elseif ($from_account == 'Savings Account') {
                 if ($sender_savings >= $transfer_amount) {
+
+$transactions_id_temp = $user_id;
+$type = 'expense';
+$amount = $transfer_amount;
+$description = $transfer_description;
+$from_account = $from_account;
+$to_account = $transfer_email;
+$status = 'Savings Account';
+$sql_sender = "INSERT INTO transactions (user_id, type, amount, description, from_account, to_account, status)
+        VALUES ('$user_id', '$type', '$amount', '$description', '$from_account', '$to_account', '$status')";
+mysqli_query($conn, $sql_sender);
+
                     // Deduct from sender's savings account
                     $new_savings = $sender_savings - $transfer_amount;
                     $sql_sender_update = "UPDATE amounts 
                                            SET savings = $new_savings, 
                                                expenses = expenses + $transfer_amount 
                                            WHERE user_id='$user_id'";
+
+
+$transactions_id_temp = $recipient_id;
+$type = 'income';
+$amount = $transfer_amount;
+$description = $transfer_description;
+$from_account = $from_account;
+$to_account = $transfer_email;
+$status = 'Savings Account';
+
+$sql_recipient = "INSERT INTO transactions (user_id, type, amount, description, from_account, to_account, status)
+        VALUES ('$recipient_id', '$type', '$amount', '$description', '$from_account', '$to_account', '$status')";
+mysqli_query($conn, $sql_recipient);
 
                     // Add to recipient's checking account
                     $sql_recipient_update = "UPDATE amounts 
@@ -453,9 +502,35 @@ if (mysqli_num_rows($result_amount) > 0) {
                         <h2>Recent Transactions</h2>
                         <button class="view-all-btn" onclick="showSection('transactions')">View All</button>
                     </div>
-                    <div class="transactions-list" id="recentTransactionsList">
-                        <!-- Transactions will be loaded here -->
-                    </div>
+                   <div class="transactions-list" id="recentTransactionsList">
+<?php
+if (!empty($transactions)) {
+    foreach ($transactions as $t) {
+        // Choose icon and color based on type
+        $icon = $t['type'] === 'income' ? 'fa-arrow-down' : 'fa-arrow-up';
+        $colorClass = $t['type'] === 'income' ? 'positive' : 'negative';
+        $amountPrefix = $t['type'] === 'income' ? '+' : '-';
+
+        echo "
+        <div class='transaction-item'>
+            <div class='transaction-icon $colorClass'>
+                <i class='fas $icon'></i>
+            </div>
+            <div class='transaction-details'>
+                <p class='transaction-title'>{$t['description']}</p>
+                <p class='transaction-date'>{$t['created_at']}</p>
+            </div>
+            <div class='transaction-amount $colorClass'>
+                {$amountPrefix}Rs" . number_format($t['amount'], 2) . "
+            </div>
+        </div>";
+    }
+} else {
+    echo "<p style='color: #999;'>No recent transactions.</p>";
+}
+?>
+</div>
+
                 </div>
             </div>
             
@@ -528,9 +603,26 @@ if (mysqli_num_rows($result_amount) > 0) {
                             <div class="table-cell">Description</div>
                         </div>
                     </div>
-                    <div class="table-body" id="transactionsTableBody">
-                        <!-- Transactions will be loaded here -->
-                    </div>
+                 <div class="table-body" id="transactionsTableBody">
+<?php
+if (!empty($transactions)) {
+    foreach ($transactions as $t) {
+        echo "
+        <div class='table-row'>
+            <div class='table-cell'>{$t['created_at']}</div>
+            <div class='table-cell'>{$t['from_account']}</div>
+            <div class='table-cell'>" . ucfirst($t['type']) . "</div>
+            <div class='table-cell'>Rs" . number_format($t['amount'], 2) . "</div>
+            <div class='table-cell'>{$t['description']}</div>
+        </div>";
+    }
+} else {
+    echo "<div class='table-row'><div class='table-cell' colspan='5'>No transactions yet.</div></div>";
+}
+?>
+</div>
+
+
                 </div>
             </div>
             
@@ -693,6 +785,32 @@ if (mysqli_num_rows($result_amount) > 0) {
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+     <!-- Password Change Modal -->
+    <div id="passwordModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closePasswordModal()">&times;</span>
+            <h2>Change Password</h2>
+            <form method="POST" action="dashboard.php" onsubmit="return validatePasswordForm()">
+                <div class="form-group">
+                    <label>Current Password</label>
+                    <input type="password" name="current_password" id="currentPassword" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>New Password</label>
+                    <input type="password" name="new_password" id="newPassword" class="form-control" required minlength="6">
+                </div>
+                <div class="form-group">
+                    <label>Confirm New Password</label>
+                    <input type="password" name="confirm_password" id="confirmPassword" class="form-control" required minlength="6">
+                </div>
+                <div style="display: flex; gap: 1rem;">
+                    <button type="submit" name="change_password" class="btn btn-primary">Change Password</button>
+                    <button type="button" class="btn btn-outline" onclick="closePasswordModal()">Cancel</button>
+                </div>
+            </form>
         </div>
     </div>
     
