@@ -646,29 +646,27 @@ if (!empty($transactions)) {
                         </div>
                     </div>
                  <div class="table-body" id="transactionsTableBody">
-<?php
-if (!empty($transactions)) {
-    foreach ($transactions as $t) {
-        $date = date('M d, Y H:i', strtotime($t['created_at']));
-        $from = !empty($t['from_account']) ? $t['from_account'] : 'N/A';
-        $description = !empty($t['description']) ? $t['description'] : 'Transaction';
+                    <?php
+                    if (!empty($transactions)) {
+                        foreach ($transactions as $t) {
+                            $date = date('M d, Y H:i', strtotime($t['created_at']));
+                            $from = !empty($t['from_account']) ? $t['from_account'] : 'N/A';
+                            $description = !empty($t['description']) ? $t['description'] : 'Transaction';
 
-        echo "
-        <div class='table-row' data-type='{$t['type']}'>
-            <div class='table-cell'>$date</div>
-            <div class='table-cell'>$from</div>
-            <div class='table-cell'>" . ucfirst($t['type']) . "</div>
-            <div class='table-cell'>Rs" . number_format($t['amount'], 2) . "</div>
-            <div class='table-cell'>$description</div>
-        </div>";
-    }
-} else {
-    echo "<div class='table-row'><div class='table-cell' style='grid-column: 1 / -1; text-align: center; padding: 2rem;'>No transactions yet.</div></div>";
-}
-?>
-</div>
-
-
+                            echo "
+                            <div class='table-row' data-type='{$t['type']}'>
+                                <div class='table-cell'>$date</div>
+                                <div class='table-cell'>$from</div>
+                                <div class='table-cell'>" . ucfirst($t['type']) . "</div>
+                                <div class='table-cell'>Rs" . number_format($t['amount'], 2) . "</div>
+                                <div class='table-cell'>$description</div>
+                            </div>";
+                        }
+                    } else {
+                        echo "<div class='table-row'><div class='table-cell' style='grid-column: 1 / -1; text-align: center; padding: 2rem;'>No transactions yet.</div></div>";
+                    }
+                    ?>
+                    </div>
                 </div>
             </div>
             
